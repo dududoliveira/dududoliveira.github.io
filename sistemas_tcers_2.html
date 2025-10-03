@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rumo ao Controle 4.0: Modernização do Controle Público no RS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+        .chart-container { position: relative; width: 100%; max-width: 800px; margin-left: auto; margin-right: auto; height: 400px; max-height: 50vh; }
+        @media (max-width: 768px) { .chart-container { height: 350px; max-height: 60vh; } }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        th { background-color: #f8fafc; font-weight: bold; color: #334155; }
+        tbody tr:hover { background-color: #f1f5f9; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-50 shadow-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-3">
+                <div class="flex items-center space-x-4">
+                    <div class="flex-shrink-0 bg-blue-700 text-white w-14 h-14 flex items-center justify-center rounded-lg">
+                        <span class="font-bold text-xl">TCE</span>
+                    </div>
+                    <div class="flex flex-col leading-tight">
+                        <span class="text-sm font-bold text-slate-600 tracking-wider">ANÁLISE DE EFICIÊNCIA</span>
+                        <span class="text-xl font-extrabold text-blue-800">CONTROLE PÚBLICO</span>
+                        <span class="text-xs font-semibold text-slate-500">Desafios dos Municípios do RS</span>
+                    </div>
+                </div>
+                <nav class="hidden md:flex items-center space-x-1 text-sm font-semibold text-slate-700">
+                    <a href="#visao-geral" class="px-3 py-2 rounded-md hover:bg-slate-100 hover:text-blue-700 transition-all">Visão Geral</a>
+                    <a href="#introducao" class="px-3 py-2 rounded-md hover:bg-slate-100 hover:text-blue-700 transition-all">Introdução</a>
+                    <a href="#diagnostico" class="px-3 py-2 rounded-md hover:bg-slate-100 hover:text-blue-700 transition-all">Diagnóstico</a>
+                    <a href="#prevalencia-nivel1" class="px-3 py-2 rounded-md hover:bg-slate-100 hover:text-blue-700 transition-all">Prevalência Nível 1</a>
+                    <a href="#quantificacao" class="px-3 py-2 rounded-md hover:bg-slate-100 hover:text-blue-700 transition-all">Custos</a>
+                    <a href="#recomendacoes" class="px-3 py-2 rounded-md hover:bg-slate-100 hover:text-blue-700 transition-all">Recomendações</a>
+                    <a href="#conclusao" class="px-3 py-2 rounded-md hover:bg-slate-100 hover:text-blue-700 transition-all">Conclusão</a>
+                </nav>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-slate-800 hover:text-blue-700 focus:outline-none">
+                        <svg id="menu-open-icon" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                        </svg>
+                        <svg id="menu-close-icon" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-white shadow-lg">
+            <nav class="flex flex-col items-center space-y-2 p-4">
+                <a href="#visao-geral" class="mobile-menu-link block w-full text-center px-4 py-3 rounded-md text-base font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-700">Visão Geral</a>
+                <a href="#introducao" class="mobile-menu-link block w-full text-center px-4 py-3 rounded-md text-base font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-700">Introdução</a>
+                <a href="#diagnostico" class="mobile-menu-link block w-full text-center px-4 py-3 rounded-md text-base font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-700">Diagnóstico</a>
+                <a href="#prevalencia-nivel1" class="mobile-menu-link block w-full text-center px-4 py-3 rounded-md text-base font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-700">Prevalência Nível 1</a>
+                <a href="#quantificacao" class="mobile-menu-link block w-full text-center px-4 py-3 rounded-md text-base font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-700">Custos</a>
+                <a href="#recomendacoes" class="mobile-menu-link block w-full text-center px-4 py-3 rounded-md text-base font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-700">Recomendações</a>
+                <a href="#conclusao" class="mobile-menu-link block w-full text-center px-4 py-3 rounded-md text-base font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-700">Conclusão</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+
+        <section id="visao-geral" class="text-center pt-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-slate-900">Rumo ao Controle 4.0</h2>
+            <p class="mt-4 max-w-3xl mx-auto text-lg text-slate-600">Uma análise sobre a modernização do TCE-RS e o impacto da tecnologia na eficiência do controle público nos municípios gaúchos.</p>
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="font-bold text-slate-500">Custo Anual da Ineficiência</h3>
+                    <p class="text-3xl font-bold text-red-600 mt-2">~ R$ 7 Milhões</p>
+                    <p class="text-sm text-slate-500 mt-1">Custo de oportunidade em horas de trabalho perdidas com processos manuais.</p>
+                </div>
+                <div class="bg-red-50 border-2 border-red-200 p-6 rounded-xl shadow-md">
+                    <h3 class="font-bold text-red-700">Integração API (Nível 3)</h3>
+                    <p class="text-3xl font-bold text-red-800 mt-2">INEXISTENTE</p>
+                    <p class="text-sm text-red-600 mt-1">A falta de automação total é o maior gargalo tecnológico do ecossistema.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="font-bold text-slate-500">Método Predominante (Nível 2)</h3>
+                    <p class="text-3xl font-bold text-slate-800 mt-2">SEMI-AUTOMÁTICO</p>
+                    <p class="text-sm text-slate-500 mt-1">A maioria das entidades depende da exportação e validação de arquivos.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="font-bold text-slate-500">Principal Desafio (Nível 1)</h3>
+                    <p class="text-3xl font-bold text-slate-800 mt-2">MANUAL</p>
+                    <p class="text-sm text-slate-500 mt-1">A digitação manual em portais ainda é a realidade para muitos municípios de menor porte.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="introducao" class="pt-24 mt-12">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-slate-900">Introdução ao Problema</h2>
+            </div>
+            <div class="mt-8 max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-md text-slate-700 text-justify space-y-4">
+                <p>Este relatório analisa o ecossistema de sistemas de submissão de dados do Tribunal de Contas do Estado do Rio Grande do Sul (TCE-RS), que, devido à sua fragmentação em múltiplas plataformas como LICITACON, SIAPC/PAD e SIAPESweb, gera um "déficit de eficiência" significativo. Isso resulta em altos custos operacionais e alocação inadequada de recursos, afetando desproporcionalmente os municípios menores que dependem de processos manuais (Nível 1).</p>
+                <p>As principais conclusões apontam que a maioria das entidades públicas utiliza métodos semi-automatizados (Nível 2), com integração totalmente automatizada via API (Nível 3) sendo quase inexistente. O relatório quantifica o problema, estimando um custo anual de aproximadamente R$ 7 milhões em horas de trabalho perdidas.</p>
+                <p>As recomendações incluem uma transição do TCE-RS para uma estratégia "API-first", unificando a submissão de dados e promovendo a colaboração com jurisdicionados e fornecedores de tecnologia. Para as entidades públicas, sugere-se investir em sistemas de gestão modernos e usar a advocacia coletiva. Para os fornecedores de tecnologia, a proposta é desenvolver soluções custo-efetivas e plataformas de "integração como serviço".</p>
+                <p>A conclusão é que a modernização do sistema de submissão de dados pode transformar a conformidade de um fardo em um ativo estratégico, fortalecendo a governança e a transparência.</p>
+            </div>
+        </section>
+
+        <section id="diagnostico" class="pt-24 mt-12">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-slate-900">O Diagnóstico do Ecossistema de Dados</h2>
+                <p class="mt-3 max-w-2xl mx-auto text-slate-600">O modelo atual do TCE-RS é fragmentado em múltiplas plataformas, como LICITACON, SIAPC/PAD e SIAPESweb. Essa arquitetura cria silos de dados e impõe um fluxo de trabalho ineficiente.</p>
+            </div>
+            <div class="mt-10 max-w-4xl mx-auto space-y-6">
+                <div class="bg-white p-5 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-lg">Nível 1: Totalmente Manual</h3>
+                    <p class="text-slate-600 mt-1">Digitação direta de dados em portais web. É o método que impõe a maior carga de trabalho e é comum em municípios menores.</p>
+                </div>
+                <div class="bg-white p-5 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-lg">Nível 2: Semi-Automatizado (Baseado em Arquivos)</h3>
+                    <p class="text-slate-600 mt-1">Geração de arquivos (TXT, XML) a partir de sistemas ERP, seguida de upload e validação manual. Embora melhor que o Nível 1, ainda exige retrabalho.</p>
+                </div>
+                <div class="bg-blue-50 p-5 rounded-lg shadow-lg border-2 border-blue-200">
+                    <h3 class="font-bold text-lg text-blue-800">Nível 3: Totalmente Automatizado (Baseado em API)</h3>
+                    <p class="text-slate-700 mt-1">Comunicação direta e em tempo real entre os sistemas da entidade e do TCE-RS. <span class="font-semibold text-red-700">Este nível de integração é praticamente inexistente no ecossistema atual.</span></p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="prevalencia-nivel1" class="pt-24 mt-12">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-slate-900">A Carga do Trabalho Manual</h2>
+                <p class="mt-3 max-w-2xl mx-auto text-slate-600">O "Nível 1" não é uma abstração, mas uma realidade diária para muitos servidores. A digitação manual concentra-se em sistemas específicos que se tornaram gargalos de eficiência.</p>
+            </div>
+            <div class="mt-10 grid grid-cols-1 md:grid-cols-5 gap-8 items-center">
+                <div class="md:col-span-2 bg-white p-6 rounded-2xl shadow-lg">
+                    <h3 class="text-xl font-bold text-center mb-4">Distribuição do Esforço Manual</h3>
+                    <div class="chart-container" style="height: 300px;">
+                        <canvas id="prevalenciaChart"></canvas>
+                    </div>
+                </div>
+                <div class="md:col-span-3 space-y-4">
+                    <div class="bg-white p-5 rounded-lg shadow-sm border-l-4 border-red-500">
+                        <h3 class="font-bold text-lg">LICITACON Web</h3>
+                        <p class="text-slate-600 mt-1">Principal fonte de trabalho manual, exigindo o cadastro detalhado de todas as fases dos processos licitatórios.</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg shadow-sm border-l-4 border-orange-500">
+                        <h3 class="font-bold text-lg">SIAPESweb (Pessoal)</h3>
+                        <p class="text-slate-600 mt-1">A submissão de dados de recursos humanos frequentemente requer digitação em um portal isolado dos sistemas de RH.</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg shadow-sm border-l-4 border-purple-500">
+                        <h3 class="font-bold text-lg">SAPIEM</h3>
+                        <p class="text-slate-600 mt-1">Plataforma para auditorias, onde o envio de documentos comprobatórios muitas vezes ocorre de forma manual.</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg shadow-sm border-l-4 border-yellow-500">
+                        <h3 class="font-bold text-lg">Questionários e Outros</h3>
+                        <p class="text-slate-600 mt-1">Diversos outros sistemas e questionários online que demandam entrada manual de dados, fragmentando o processo.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="quantificacao" class="pt-24 mt-12">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-slate-900">Quantificando a Ineficiência</h2>
+                <p class="mt-3 max-w-2xl mx-auto text-slate-600">A análise quantitativa revela o impacto desproporcional nos municípios de pequeno porte, que representam a maioria das entidades e arcam com a maior parte dos custos de conformidade.</p>
+            </div>
+            <div class="mt-10 bg-white p-4 sm:p-6 rounded-2xl shadow-lg">
+                <h3 class="text-xl font-bold text-center mb-4">Adoção de Métodos de Submissão por Perfil</h3>
+                <div class="chart-container">
+                    <canvas id="adocaoChart"></canvas>
+                </div>
+            </div>
+            <div class="mt-10 bg-white p-4 sm:p-6 rounded-2xl shadow-lg overflow-x-auto">
+                 <h3 class="text-xl font-bold text-center mb-4">Custo Anual Estimado da Ineficiência</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Perfil da Entidade</th>
+                            <th>Horas de Trabalho Anuais Médias</th>
+                            <th>Custo Salarial Anual Médio</th>
+                            <th>Custo Anual Total para o Segmento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Municípios Pequenos</td>
+                            <td>256 horas</td>
+                            <td>R$ 15.360</td>
+                            <td>R$ 5.990.400</td>
+                        </tr>
+                        <tr>
+                            <td>Municípios Médios</td>
+                            <td>184 horas</td>
+                            <td>R$ 11.040</td>
+                            <td>R$ 717.600</td>
+                        </tr>
+                        <tr>
+                            <td>Grandes Municípios & Órgãos Estaduais</td>
+                            <td>132 horas</td>
+                            <td>R$ 7.920</td>
+                            <td>R$ 316.800</td>
+                        </tr>
+                        <tr class="font-bold bg-slate-50">
+                            <td>Total Estadual</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>~ R$ 7.024.800</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-10 bg-white p-4 sm:p-6 rounded-2xl shadow-lg">
+                <h3 class="text-xl font-bold text-center mb-4">Custo Total por Segmento</h3>
+                <div class="chart-container">
+                    <canvas id="custoTotalChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="recomendacoes" class="pt-24 mt-12">
+             <div class="text-center">
+                <h2 class="text-3xl font-bold text-slate-900">Recomendações Estratégicas</h2>
+                <p class="mt-3 max-w-2xl mx-auto text-slate-600">A transformação do cenário atual exige ações coordenadas entre todas as partes interessadas.</p>
+            </div>
+            <div class="mt-10 max-w-4xl mx-auto space-y-4">
+                 <div class="bg-white p-5 rounded-lg shadow-sm border-l-4 border-blue-500">
+                    <h3 class="font-bold text-lg">Para o TCE-RS: Estratégia "API-First"</h3>
+                    <p class="text-slate-600 mt-1">Unificar a submissão de dados em um gateway único baseado em APIs modernas, adotando uma abordagem colaborativa com municípios e fornecedores para co-projetar os novos padrões.</p>
+                </div>
+                <div class="bg-white p-5 rounded-lg shadow-sm border-l-4 border-green-500">
+                    <h3 class="font-bold text-lg">Para as Entidades Públicas: Capacidade e Advocacia</h3>
+                    <p class="text-slate-600 mt-1">Investir em sistemas de gestão (ERPs) modernos com capacidade de integração e utilizar a advocacia coletiva (via FAMURS) para pleitear a modernização junto ao Tribunal.</p>
+                </div>
+                <div class="bg-white p-5 rounded-lg shadow-sm border-l-4 border-yellow-500">
+                    <h3 class="font-bold text-lg">Para Fornecedores de Tecnologia: Inovação</h3>
+                    <p class="text-slate-600 mt-1">Desenvolver soluções custo-efetivas para pequenos municípios e plataformas de "integração como serviço" (IaaS) que se conectem à futura API do TCE-RS.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="conclusao" class="pt-24 mt-12 text-center">
+             <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-slate-900">De Fardo de Conformidade a Ativo Estratégico</h2>
+                <p class="mt-4 text-lg text-slate-600">O atual modelo representa um passivo significativo para o setor público gaúcho, drenando milhões de reais e milhares de horas de trabalho. A transição para um modelo moderno, colaborativo e centrado em APIs tem o potencial de converter a submissão de dados de um fardo em um ativo estratégico, fortalecendo a governança, a transparência e a eficiência do serviço público.</p>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="mt-20 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-slate-500 text-sm">
+            <p>Desenvolvido como uma demonstração de visualização de dados. Não é um documento oficial.</p>
+            <p class="mt-1">Fonte dos Dados: Relatório "Modernização do controle público no RGS pelo TCE-RS e os desafios enfrentados pelos municípios 2".</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Menu Logic
+            const menuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const openIcon = document.getElementById('menu-open-icon');
+            const closeIcon = document.getElementById('menu-close-icon');
+            const menuLinks = document.querySelectorAll('.mobile-menu-link');
+
+            const toggleMenu = () => {
+                mobileMenu.classList.toggle('hidden');
+                openIcon.classList.toggle('hidden');
+                closeIcon.classList.toggle('hidden');
+            };
+
+            menuButton.addEventListener('click', toggleMenu);
+            menuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        toggleMenu();
+                    }
+                });
+            });
+
+            // Common Chart Tooltip Logic
+            const getChartTooltip = (isCurrency = false) => ({
+                backgroundColor: '#27272a',
+                titleFont: { weight: 'bold' },
+                bodyFont: { size: 12 },
+                cornerRadius: 6,
+                displayColors: false,
+                callbacks: {
+                    label: function(context) {
+                        let label = context.dataset.label || '';
+                        if (label) {
+                            label += ': ';
+                        }
+                        let value = context.parsed.y;
+                        if (isCurrency) {
+                            label += new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
+                        } else {
+                            label += `${context.formattedValue}%`;
+                        }
+                        return label;
+                    }
+                }
+            });
+
+            // Data for Adoção Chart
+            const adocaoData = {
+                labels: ['Municípios Pequenos', 'Municípios Médios', 'Órgãos Estaduais & Grandes Municípios'],
+                datasets: [
+                    {
+                        label: 'Nível 1: Totalmente Manual',
+                        data: [30, 15, 5],
+                        backgroundColor: '#dc2626'
+                    },
+                    {
+                        label: 'Nível 2: Semi-Automatizado',
+                        data: [70, 85, 95],
+                        backgroundColor: '#f59e0b'
+                    }
+                ]
+            };
+            
+            new Chart(document.getElementById('adocaoChart'), {
+                type: 'bar',
+                data: adocaoData,
+                options: {
+                    plugins: {
+                        legend: { position: 'bottom', labels: { usePointStyle: true, pointStyle: 'rectRounded' } },
+                        tooltip: getChartTooltip()
+                    },
+                    scales: {
+                        y: { stacked: true, ticks: { callback: value => `${value}%` }, grid: { color: 'rgba(200, 200, 200, 0.2)' } },
+                        x: { stacked: true, grid: { display: false } }
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false }
+                }
+            });
+
+            // Data for Prevalência Chart
+            const prevalenciaData = {
+                labels: ['LICITACON Web', 'SIAPESweb (Pessoal)', 'SAPIEM', 'Questionários e Outros'],
+                datasets: [{
+                    label: 'Esforço Manual',
+                    data: [40, 25, 15, 20],
+                    backgroundColor: ['#b91c1c', '#c2410c', '#9a3412', '#a16207'],
+                    borderColor: '#ffffff',
+                    borderWidth: 2,
+                    hoverOffset: 4
+                }]
+            };
+
+            new Chart(document.getElementById('prevalenciaChart'), {
+                type: 'doughnut',
+                data: prevalenciaData,
+                options: {
+                     responsive: true,
+                     maintainAspectRatio: false,
+                     cutout: '60%',
+                     plugins: {
+                         legend: { position: 'bottom', labels: { usePointStyle: true, pointStyle: 'rectRounded', padding: 15 } },
+                         tooltip: {
+                             backgroundColor: '#27272a',
+                             callbacks: {
+                                label: function(context) {
+                                    return `${context.label}: ${context.formattedValue}%`;
+                                }
+                             }
+                         }
+                     }
+                }
+            });
+
+            // Data for Custo Total Chart
+            const custoTotalData = {
+                labels: ['Municípios Pequenos', 'Municípios Médios', 'Grandes Municípios & Órgãos Estaduais'],
+                datasets: [{
+                    label: 'Custo Anual Total Estimado',
+                    data: [5990400, 717600, 316800],
+                    backgroundColor: ['#be123c', '#e11d48', '#f43f5e'],
+                    borderColor: '#fecdd3',
+                    borderWidth: 1
+                }]
+            };
+
+            new Chart(document.getElementById('custoTotalChart'), {
+                type: 'bar',
+                data: custoTotalData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: getChartTooltip(true)
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', notation: 'compact' }).format(value);
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

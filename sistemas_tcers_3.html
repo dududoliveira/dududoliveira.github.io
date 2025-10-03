@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise dos Sistemas de Dados do TCE-RS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .flow-arrow {
+            font-size: 2rem;
+            color: #3E92CC;
+            line-height: 1;
+        }
+        .card {
+            background-color: #FFFFFF;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.2s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-[#1E1B18]">
+    <!-- Brilliant Blues Palette -->
+    <header class="bg-[#0A2463] text-white p-8 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-2">Modernizando o Controle Externo</h1>
+        <p class="text-lg md:text-xl text-gray-300">Uma Análise dos Sistemas de Entrega de Dados ao TCE-RS</p>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+        
+        <section id="intro" class="mb-12">
+            <div class="card text-center">
+                <h2 class="text-3xl font-bold text-[#0A2463] mb-4">A Importância da Eficiência na Prestação de Contas</h2>
+                <p class="text-lg text-gray-700 max-w-4xl mx-auto">
+                    O Tribunal de Contas do Estado do Rio Grande do Sul (TCE-RS) fiscaliza a aplicação dos recursos públicos através da análise de dados enviados por centenas de órgãos estaduais e municipais. A forma como esses dados são entregues — seja por digitação manual, upload de arquivos ou integração automática — impacta diretamente a agilidade, a precisão e a eficácia do controle externo. Este infográfico explora os métodos atuais, suas ineficiências e o potencial da modernização.
+                </p>
+            </div>
+        </section>
+
+        <section id="ecosystem" class="mb-12">
+            <h2 class="text-3xl font-bold text-center text-[#0A2463] mb-8">O Ecossistema de Sistemas do TCE-RS</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="card text-center">
+                    <div class="text-4xl mb-4">💻</div>
+                    <h3 class="text-xl font-bold text-[#3E92CC] mb-2">SIAPC</h3>
+                    <p class="text-gray-600">Sistema de Auditoria e Prestação de Contas para municípios, focado em dados contábeis, orçamentários e financeiros.</p>
+                </div>
+                <div class="card text-center">
+                    <div class="text-4xl mb-4">📄</div>
+                    <h3 class="text-xl font-bold text-[#3E92CC] mb-2">LICITACON</h3>
+                    <p class="text-gray-600">Sistema para envio de dados sobre licitações e contratos administrativos, essencial para a transparência.</p>
+                </div>
+                <div class="card text-center">
+                    <div class="text-4xl mb-4">👥</div>
+                    <h3 class="text-xl font-bold text-[#3E92CC] mb-2">SIAPES</h3>
+                    <p class="text-gray-600">Gerencia informações sobre atos de pessoal, como admissões, inativações e pensões.</p>
+                </div>
+                <div class="card text-center">
+                    <div class="text-4xl mb-4">🎓</div>
+                    <h3 class="text-xl font-bold text-[#3E92CC] mb-2">SAPIEM</h3>
+                    <p class="text-gray-600">Coleta dados relacionados à gestão da educação nos municípios para acompanhamento e fiscalização.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="methods-comparison" class="mb-12 card md:col-span-2">
+            <h2 class="text-3xl font-bold text-center text-[#0A2463] mb-8">Comparativo dos Métodos de Entrega de Dados</h2>
+            <div class="flex flex-col md:flex-row justify-around items-start text-center gap-8">
+                <div class="flex-1 p-4 rounded-lg border-2 border-red-200 bg-red-50 w-full">
+                    <h3 class="text-xl font-bold text-red-700 mb-3">1. Digitação Manual (Via Web)</h3>
+                    <p class="text-gray-700 mb-4">Preenchimento de formulários diretamente nos portais do TCE-RS. Os dados já existentes nos sistemas do órgão são redigitados.</p>
+                    <div class="text-left space-y-2">
+                        <p class="font-semibold text-red-600">Desvantagens:</p>
+                        <ul class="list-inside list-disc text-gray-600">
+                            <li>Alto consumo de tempo</li>
+                            <li>Elevado risco de erro humano</li>
+                            <li>Falta de sincronia em tempo real</li>
+                            <li>Baixo valor agregado do trabalho</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="hidden md:flex items-center justify-center h-full pt-16">
+                    <span class="flow-arrow">&#10140;</span>
+                </div>
+
+                <div class="flex-1 p-4 rounded-lg border-2 border-yellow-300 bg-yellow-50 w-full">
+                    <h3 class="text-xl font-bold text-yellow-700 mb-3">2. Upload de Arquivos (CSV/XML)</h3>
+                    <p class="text-gray-700 mb-4">Geração de arquivos estruturados (ex: via SIAPC/PAD) a partir dos sistemas locais para posterior upload nos portais.</p>
+                     <div class="text-left space-y-2">
+                        <p class="font-semibold text-green-700">Vantagens:</p>
+                         <ul class="list-inside list-disc text-gray-600">
+                            <li>Menos propenso a erros de digitação</li>
+                            <li>Processo em lote mais rápido</li>
+                         </ul>
+                        <p class="font-semibold text-red-600">Desvantagens:</p>
+                        <ul class="list-inside list-disc text-gray-600">
+                            <li>Não é em tempo real</li>
+                            <li>Exige processo manual de extração e envio</li>
+                            <li>Dependência de layouts específicos</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="hidden md:flex items-center justify-center h-full pt-16">
+                     <span class="flow-arrow">&#10140;</span>
+                </div>
+
+                <div class="flex-1 p-4 rounded-lg border-2 border-green-300 bg-green-50 w-full">
+                    <h3 class="text-xl font-bold text-green-800 mb-3">3. Integração Automática (API)</h3>
+                    <p class="text-gray-700 mb-4">Comunicação direta e automatizada entre o sistema de gestão do órgão e os sistemas do TCE-RS, sem intervenção humana.</p>
+                    <div class="text-left space-y-2">
+                        <p class="font-semibold text-green-700">Vantagens:</p>
+                        <ul class="list-inside list-disc text-gray-600">
+                            <li>Máxima eficiência e agilidade</li>
+                            <li>Eliminação de erros de digitação</li>
+                            <li>Dados em tempo real ou quase real</li>
+                            <li>Libera pessoal para tarefas analíticas</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="data-reality" class="mb-12">
+             <h2 class="text-3xl font-bold text-center text-[#0A2463] mb-8">A Realidade da Submissão de Dados: Uma Estimativa</h2>
+             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="card">
+                    <h3 class="text-xl font-bold text-center text-[#3E92CC] mb-4">Adoção Geral de Métodos de Entrega</h3>
+                    <p class="text-center text-gray-600 mb-4">A maioria dos órgãos ainda depende de métodos manuais ou semi-manuais, indicando um grande potencial para otimização.</p>
+                    <div class="chart-container">
+                        <canvas id="adoptionDonutChart"></canvas>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 class="text-xl font-bold text-center text-[#3E92CC] mb-4">Proporção Estimada de Métodos por Sistema</h3>
+                     <p class="text-center text-gray-600 mb-4">Sistemas como o LICITACON, que lidam com dados mais estruturados, mostram uma maior adoção de upload de arquivos (XML), enquanto outros ainda são muito dependentes de inserção manual.</p>
+                    <div class="chart-container">
+                        <canvas id="methodsBySystemChart"></canvas>
+                    </div>
+                </div>
+             </div>
+        </section>
+        
+        <section id="inefficiency-cost" class="mb-12">
+            <div class="card bg-[#D8315B] text-white text-center">
+                 <h2 class="text-3xl font-bold mb-4">O Custo da Ineficiência</h2>
+                 <p class="text-2xl mb-2">Estima-se que os métodos manuais e de upload de arquivos consomem até</p>
+                 <div class="text-7xl font-bold my-4">40%</div>
+                 <p class="text-2xl">do tempo que as equipes de contabilidade e controle interno poderiam dedicar à análise de dados e à melhoria da gestão, em vez de apenas reportar informações.</p>
+            </div>
+        </section>
+
+        <section id="conclusion" class="mb-12 card">
+            <h2 class="text-3xl font-bold text-center text-[#0A2463] mb-8">O Caminho a Seguir: Integração como Solução</h2>
+            <p class="text-lg text-center text-gray-700 max-w-4xl mx-auto mb-8">
+                A transição para um modelo baseado em integração automática via APIs é fundamental para modernizar o controle externo no Rio Grande do Sul. Essa abordagem não apenas otimiza o trabalho dos órgãos jurisdicionados, mas também fortalece a capacidade de fiscalização do TCE-RS com dados mais tempestivos e de maior qualidade.
+            </p>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-8 text-lg">
+                <div class="bg-green-100 p-4 rounded-lg text-green-800 font-semibold">✔ Maior Eficiência Operacional</div>
+                <div class="bg-green-100 p-4 rounded-lg text-green-800 font-semibold">✔ Redução Drástica de Erros</div>
+                <div class="bg-green-100 p-4 rounded-lg text-green-800 font-semibold">✔ Dados Precisos e em Tempo Real</div>
+                <div class="bg-green-100 p-4 rounded-lg text-green-800 font-semibold">✔ Transparência Aprimorada</div>
+            </div>
+        </section>
+        
+        <section id="links" class="card">
+            <h2 class="text-2xl font-bold text-center text-[#0A2463] mb-6">Links e Recursos</h2>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="https://www.tce.rs.gov.br/" target="_blank" class="bg-[#3E92CC] text-white font-bold py-2 px-4 rounded hover:bg-[#0A2463] transition-colors">Portal TCE-RS</a>
+                <a href="https://www.tce.rs.gov.br/dados-abertos/" target="_blank" class="bg-[#3E92CC] text-white font-bold py-2 px-4 rounded hover:bg-[#0A2463] transition-colors">Portal de Dados Abertos</a>
+                <a href="https://www.tce.rs.gov.br/institucional-sistemas/" target="_blank" class="bg-[#3E92CC] text-white font-bold py-2 px-4 rounded hover:bg-[#0A2463] transition-colors">Documentação de Sistemas</a>
+                <a href="https://www.tce.rs.gov.br/consultas/" target="_blank" class="bg-[#3E92CC] text-white font-bold py-2 px-4 rounded hover:bg-[#0A2463] transition-colors">Consultas Públicas</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-[#1E1B18] text-white text-center p-4 mt-8">
+        <p>&copy; 2025 Análise de Dados e Visualização. Este é um infográfico informativo baseado em dados públicos e estimativas.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const processLabels = (labels) => {
+                const maxLen = 16;
+                return labels.map(label => {
+                    if (typeof label === 'string' && label.length > maxLen) {
+                        const words = label.split(' ');
+                        const newLabel = [];
+                        let line = '';
+                        words.forEach(word => {
+                            if ((line + word).length > maxLen) {
+                                newLabel.push(line.trim());
+                                line = '';
+                            }
+                            line += word + ' ';
+                        });
+                        newLabel.push(line.trim());
+                        return newLabel;
+                    }
+                    return label;
+                });
+            };
+
+            const tooltipTitleCallback = (tooltipItems) => {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                    return label.join(' ');
+                }
+                return label;
+            };
+            
+            const sharedChartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#1E1B18',
+                            font: {
+                                size: 14
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback
+                        }
+                    }
+                }
+            };
+
+            const createAdoptionDonutChart = () => {
+                const ctx = document.getElementById('adoptionDonutChart')?.getContext('2d');
+                if (!ctx) return;
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Digitação Manual', 'Upload de Arquivos', 'Integração Automática (API)'],
+                        datasets: [{
+                            label: 'Adoção de Métodos',
+                            data: [30, 55, 15],
+                            backgroundColor: [
+                                '#D8315B',
+                                '#3E92CC',
+                                '#0A2463'
+                            ],
+                            borderColor: '#FFFFFF',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        ...sharedChartOptions,
+                        cutout: '50%',
+                    }
+                });
+            };
+
+            const createMethodsBySystemChart = () => {
+                const ctx = document.getElementById('methodsBySystemChart')?.getContext('2d');
+                if (!ctx) return;
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['LICITACON', 'SIAPES', 'SAPIEM'],
+                        datasets: [{
+                            label: 'Digitação Manual',
+                            data: [15, 40, 35],
+                            backgroundColor: '#D8315B',
+                        }, {
+                            label: 'Upload de Arquivos',
+                            data: [70, 45, 55],
+                            backgroundColor: '#3E92CC',
+                        }, {
+                            label: 'Integração Automática',
+                            data: [15, 15, 10],
+                            backgroundColor: '#0A2463',
+                        }]
+                    },
+                    options: {
+                        ...sharedChartOptions,
+                        scales: {
+                            x: {
+                                stacked: true,
+                                grid: { display: false },
+                                ticks: { color: '#1E1B18' }
+                            },
+                            y: {
+                                stacked: true,
+                                beginAtZero: true,
+                                max: 100,
+                                ticks: {
+                                    callback: function(value) { return value + '%' },
+                                    color: '#1E1B18'
+                                }
+                            }
+                        }
+                    }
+                });
+            };
+            
+            createAdoptionDonutChart();
+            createMethodsBySystemChart();
+        });
+    </script>
+
+</body>
+</html>
+

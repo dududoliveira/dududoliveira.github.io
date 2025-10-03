@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infográfico: A Fiscalização do TCU sobre Fundos de Pensão</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Energetic & Playful -->
+    <!-- Application Structure Plan: The infographic follows a narrative structure designed for clarity and engagement. It begins with a high-impact "Hook" section featuring two major KPIs to grab user attention. The core is the "Timeline" section, presenting the five key decisions chronologically, allowing users to understand the sequence of events. This is followed by a "Key Trends" section that synthesizes the report's analysis into digestible themes and a comparative chart. Finally, the "Legal Context" section explains the overarching legal challenge (ADPF 817) using a simple flowchart. This top-down structure—from immediate impact to detailed analysis to broad context—was chosen to guide the user logically through a complex subject. -->
+    <!-- Visualization & Content Choices: 1. PREVI Deficit & EFPC Risk: Goal: Inform. Viz: Single Big Number in styled cards (HTML/CSS) for immediate impact. 2. Timeline of Acórdãos: Goal: Change/Organize. Viz: Interactive timeline (HTML/CSS with JS) to show progression and allow focused exploration. 3. Thematic Focus: Goal: Compare. Viz: Horizontal Bar Chart (Chart.js/Canvas) to clearly compare the frequency of key themes across decisions. 4. ADPF 817 Conflict: Goal: Organize/Relationships. Viz: Flowchart diagram (HTML/CSS with Tailwind Flexbox) to illustrate the positions of Abrapp and TCU. All choices avoid SVG/Mermaid and use the most effective method for the data type and narrative goal. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fdfcfa;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 450px;
+        }
+         @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto px-6 py-12">
+
+        <header class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4" style="color: #5c3b77;">TCU em Foco: A Nova Era na Fiscalização dos Fundos de Pensão</h1>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">Uma análise visual das decisões mais recentes do Tribunal de Contas da União, que revelam um controle mais rigoroso e proativo sobre as Entidades Fechadas de Previdência Complementar (EFPCs) no Brasil.</p>
+        </header>
+
+        <section id="kpis" class="mb-20 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-[#d83b8c]">
+                <h2 class="text-xl font-semibold text-gray-700 mb-2">Déficit Atuarial Sob Investigação</h2>
+                <p class="text-5xl font-bold" style="color: #d83b8c;">R$ 17,7 Bilhões</p>
+                <p class="text-gray-600 mt-2">É o déficit acumulado no Plano 1 da PREVI que motivou o TCU a converter um levantamento em uma auditoria completa, sinalizando tolerância zero a riscos sistêmicos (Acórdão 780/2025).</p>
+            </div>
+            <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-[#ffa600]">
+                <h2 class="text-xl font-semibold text-gray-700 mb-2">Alerta de Integridade no Setor</h2>
+                <p class="text-5xl font-bold" style="color: #ffa600;">54,8%</p>
+                <p class="text-gray-600 mt-2">Das EFPCs analisadas pelo TCU apresentam risco de integridade alto ou extremo, expondo falhas de governança e a necessidade de controles mais robustos (Acórdão 1808/2023).</p>
+            </div>
+        </section>
+
+        <section id="timeline" class="mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold" style="color: #5c3b77;">Linha do Tempo: 5 Decisões que Moldam o Futuro</h2>
+                <p class="text-gray-600 mt-2 max-w-2xl mx-auto">A sequência de acórdãos demonstra uma escalada na intensidade e na sofisticação da fiscalização do Tribunal.</p>
+            </div>
+            <div class="relative max-w-5xl mx-auto">
+                <div class="absolute left-1/2 w-1 h-full bg-gray-200 rounded-full -translate-x-1/2"></div>
+                <div id="timeline-items" class="space-y-12">
+                </div>
+            </div>
+        </section>
+        
+        <section id="trends" class="mb-20 bg-white p-8 md:p-12 rounded-xl shadow-lg">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold" style="color: #5c3b77;">Tendências Regulatórias Emergentes</h2>
+                <p class="text-gray-600 mt-2 max-w-2xl mx-auto">A análise conjunta dos acórdãos revela três pilares na nova estratégia de atuação do TCU.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                    <div class="flex items-start gap-4">
+                        <div class="text-3xl font-bold" style="color: #d83b8c;">1</div>
+                        <div>
+                            <h3 class="font-bold text-lg">Foco em Governança e Risco</h3>
+                            <p class="text-gray-600">O TCU vai além dos números, avaliando a qualidade dos processos de gestão, a diligência dos administradores e a eficácia dos controles internos para prevenir perdas.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="text-3xl font-bold" style="color: #ffa600;">2</div>
+                        <div>
+                            <h3 class="font-bold text-lg">Fiscalização Proativa e Normativa</h3>
+                            <p class="text-gray-600">Com a IN 99/2025, o TCU cria regras claras e passa de uma postura reativa para uma abordagem preventiva, buscando identificar riscos antes que se tornem crises.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="text-3xl font-bold" style="color: #7a5195;">3</div>
+                        <div>
+                            <h3 class="font-bold text-lg">Responsabilidade Compartilhada</h3>
+                            <p class="text-gray-600">A jurisprudência sobre paridade contributiva reforça que os custos de déficits devem ser divididos equitativamente, protegendo o equilíbrio financeiro dos planos.</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="font-bold text-center text-lg mb-4">Frequência dos Temas nos Acórdãos</h3>
+                    <div class="chart-container">
+                        <canvas id="trendsChart"></canvas>
+                    </div>
+                    <p class="text-center text-sm text-gray-500 mt-2">O gráfico mostra como a "Auditoria e Fiscalização" é o tema dominante, refletindo a intensificação do controle pelo TCU.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="context" class="text-center">
+             <h2 class="text-3xl font-bold mb-4" style="color: #5c3b77;">O Cenário Jurídico: A Disputa no STF</h2>
+             <p class="text-gray-600 mt-2 max-w-3xl mx-auto mb-10">A Arguição de Descumprimento de Preceito Fundamental (ADPF 817) no Supremo Tribunal Federal pode redefinir os limites da atuação do TCU sobre os fundos de pensão.</p>
+             <div class="flex flex-col md:flex-row items-center justify-center gap-4 max-w-4xl mx-auto">
+                <div class="bg-white p-6 rounded-xl shadow-md w-full md:w-2/5 border-b-4 border-gray-300">
+                    <h3 class="font-bold text-xl">Posição da Abrapp</h3>
+                    <p class="mt-2 text-gray-600">Argumenta que EFPCs são entidades privadas e já fiscalizadas pela Previc. Defende que o TCU deve ter um "controle de segunda ordem", fiscalizando apenas o órgão regulador.</p>
+                </div>
+                <div class="text-2xl font-bold" style="color: #d83b8c;">vs</div>
+                <div class="bg-white p-6 rounded-xl shadow-md w-full md:w-2/5 border-b-4 border-gray-300">
+                    <h3 class="font-bold text-xl">Posição do TCU</h3>
+                    <p class="mt-2 text-gray-600">Sustenta sua competência para fiscalizar diretamente os fundos, argumentando que os recursos, por sua natureza e origem, têm caráter público e impactam as contas da União.</p>
+                </div>
+             </div>
+             <div class="mt-8">
+                <p class="text-2xl animate-pulse">➔</p>
+                <div class="bg-yellow-100 border-t-4 border-yellow-400 p-6 rounded-xl shadow-md max-w-xl mx-auto mt-4">
+                    <h3 class="font-bold text-xl text-yellow-800">Decisão Pendente</h3>
+                    <p class="mt-2 text-yellow-700">O resultado da ADPF 817 no STF é crucial: poderá confirmar a fiscalização direta do TCU ou limitá-la, alterando drasticamente o cenário regulatório para todo o setor.</p>
+                </div>
+             </div>
+        </section>
+
+    </div>
+
+    <footer class="text-center py-6 bg-gray-100 mt-16">
+        <p class="text-gray-600">Infográfico gerado a partir da análise de jurisprudência do TCU.</p>
+    </footer>
+
+    <script>
+        const timelineData = [
+            { date: '30/08/2023', side: 'left', title: 'Acórdão 1808/2023', color: '#ffa600', description: 'Auditoria sistêmica aponta falhas na Previc e revela que 54,8% das EFPCs têm alto risco de integridade.' },
+            { date: '03/07/2024', side: 'right', title: 'Acórdão 1323/2024', color: '#7a5195', description: 'TCU veda aportes de patrocinadores públicos para cobrir déficits sem a contrapartida dos participantes, reforçando a paridade.' },
+            { date: '21/08/2024', side: 'left', title: 'Acórdão 1651/2024', color: '#ffa600', description: 'Análise de representação na PREVI serve de gatilho para uma investigação mais profunda sobre a governança da entidade.' },
+            { date: '26/03/2025', side: 'right', title: 'Acórdão 627/2025', color: '#7a5195', description: 'Aprovação da IN 99/2025, que cria um marco normativo para uma fiscalização mais proativa e sistemática dos investimentos e déficits.' },
+            { date: '09/04/2025', side: 'left', title: 'Acórdão 780/2025', color: '#d83b8c', description: 'Conversão de levantamento em auditoria plena na PREVI após identificar déficit de R$ 17,7 bi e sérios riscos de gestão.' }
+        ];
+
+        const timelineContainer = document.getElementById('timeline-items');
+        timelineData.forEach(item => {
+            const isLeft = item.side === 'left';
+            const timelineElement = document.createElement('div');
+            timelineElement.className = `relative flex items-center ${isLeft ? 'justify-start' : 'justify-end'}`;
+            
+            timelineElement.innerHTML = `
+                <div class="w-1/2 ${isLeft ? 'pr-8' : 'pl-8 text-right'}">
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                        <p class="font-bold text-lg" style="color: ${item.color};">${item.title}</p>
+                        <p class="text-sm text-gray-500 mb-2">${item.date}</p>
+                        <p class="text-gray-600">${item.description}</p>
+                    </div>
+                </div>
+                <div class="absolute w-6 h-6 rounded-full left-1/2 -translate-x-1/2 flex items-center justify-center" style="background-color: ${item.color};">
+                    <div class="w-3 h-3 bg-white rounded-full"></div>
+                </div>
+            `;
+            timelineContainer.appendChild(timelineElement);
+        });
+
+        const ctx = document.getElementById('trendsChart').getContext('2d');
+        const trendsChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [
+                    ['Auditoria e', 'Fiscalização'],
+                    ['Governança', 'e Risco'], 
+                    ['Equacionamento', 'de Déficit'],
+                    ['Regulamentação', 'e Normas']
+                ],
+                datasets: [{
+                    label: 'Nº de Acórdãos',
+                    data: [5, 4, 2, 2],
+                    backgroundColor: ['#d83b8c', '#ffa600', '#7a5195', '#5c3b77'],
+                    borderRadius: 4,
+                    barThickness: 25,
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: '#333',
+                        titleFont: { size: 14 },
+                        bodyFont: { size: 12 },
+                        displayColors: false,
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                if (Array.isArray(label)) {
+                                  return label.join(' ');
+                                } else {
+                                  return label;
+                                }
+                            },
+                            label: function(context) {
+                                return `${context.raw} acórdãos abordam este tema.`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        grid: {
+                            display: false,
+                            drawBorder: false,
+                        },
+                        ticks: {
+                            stepSize: 1,
+                            font: {
+                                weight: '600'
+                            }
+                        }
+                    },
+                    y: {
+                         grid: {
+                            display: false,
+                            drawBorder: false,
+                        },
+                        ticks: {
+                            font: {
+                                size: 14,
+                                weight: '600'
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
