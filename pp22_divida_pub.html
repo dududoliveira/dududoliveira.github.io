@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise da Dívida Pública do Rio Grande do Sul em 2022</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+        .chart-container { position: relative; width: 100%; max-width: 800px; margin-left: auto; margin-right: auto; height: 400px; max-height: 50vh; }
+        @media (max-width: 768px) { .chart-container { height: 350px; max-height: 60vh; } }
+
+        /* Estilos do Flip Card */
+        .flip-card { perspective: 1000px; height: 100%; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.8s; transform-style: preserve-3d; }
+        .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 0.75rem; padding: 1.5rem; }
+        .flip-card-front { background-color: #f8fafc; color: #1e293b; border: 1px solid #e2e8f0; }
+        .flip-card-back { background-color: #dc2626; color: white; transform: rotateY(180deg); display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .flip-card.alert .flip-card-back { background-color: #d97706; } /* Alerta Laranja para Precatórios */
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-50 shadow-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-3">
+                <div class="flex items-center space-x-4">
+                    <div class="flex-shrink-0 bg-red-700 text-white w-14 h-14 flex items-center justify-center rounded-lg">
+                        <span class="font-bold text-xl">TCE</span>
+                    </div>
+                    <div class="flex flex-col leading-tight">
+                        <span class="text-sm font-bold text-slate-600 tracking-wider">FINANÇAS PÚBLICAS</span>
+                        <span class="text-xl font-extrabold text-red-800">DÍVIDA RS</span>
+                        <span class="text-xs font-semibold text-slate-500">Análise 2021 vs. 2022</span>
+                    </div>
+                </div>
+                <nav class="hidden md:flex items-center space-x-1 text-sm font-semibold text-slate-700">
+                    <a href="#visao-geral" class="px-3 py-2 rounded-md hover:bg-slate-100 hover:text-red-700 transition-all">Visão Geral</a>
+                    <a href="#composicao" class="px-3 py-2 rounded-md hover:bg-slate-100 hover:text-red-700 transition-all">Composição</a>
+                    <a href="#interna-externa" class="px-3 py-2 rounded-md hover:bg-slate-100 hover:text-red-700 transition-all">Interna & Externa</a>
+                    <a href="#desafios" class="px-3 py-2 rounded-md bg-red-100 text-red-800 hover:bg-red-200 transition-all">Desafios</a>
+                </nav>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-slate-800 hover:text-red-700 focus:outline-none">
+                        <svg id="menu-open-icon" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+                        <svg id="menu-close-icon" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-white shadow-lg">
+            <nav class="flex flex-col items-center space-y-2 p-4">
+                <a href="#visao-geral" class="mobile-menu-link block w-full text-center px-4 py-3 rounded-md text-base font-medium text-slate-700 hover:bg-slate-100 hover:text-red-700">Visão Geral</a>
+                <a href="#composicao" class="mobile-menu-link block w-full text-center px-4 py-3 rounded-md text-base font-medium text-slate-700 hover:bg-slate-100 hover:text-red-700">Composição</a>
+                <a href="#interna-externa" class="mobile-menu-link block w-full text-center px-4 py-3 rounded-md text-base font-medium text-slate-700 hover:bg-slate-100 hover:text-red-700">Interna & Externa</a>
+                <a href="#desafios" class="mobile-menu-link block w-full text-center px-4 py-3 rounded-md text-base font-medium bg-red-100 text-red-800 hover:bg-red-200">Desafios</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+
+        <section id="visao-geral" class="text-center pt-16">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Análise da Dívida Pública do Rio Grande do Sul em 2022</h2>
+            <p class="mt-4 max-w-3xl mx-auto text-lg text-slate-600">O Estado encerrou 2022 com uma Dívida Total de **R$ 109,52 Bilhões**, um aumento significativo em relação ao ano anterior.</p>
+            
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+                <div class="flip-card h-40">
+                    <div class="flip-card-inner shadow-xl">
+                        <div class="flip-card-front bg-red-50 border-red-200 flex flex-col justify-center">
+                            <h3 class="font-bold text-red-700 text-sm uppercase">Dívida Total (2022)</h3>
+                            <p class="text-4xl font-extrabold text-red-800 mt-2">R$ 109,52 Bi</p>
+                            <p class="text-sm text-slate-500 mt-1">Comparado aos R$ 98,33 Bi de 2021.</p>
+                        </div>
+                        <div class="flip-card-back bg-red-600">
+                             <span class="text-xl font-bold">Aumento de:</span>
+                            <p class="text-5xl font-extrabold">+11,5%</p>
+                            <span class="text-sm font-medium">Fato alarmante em 2022.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-xl">
+                    <h3 class="font-bold text-slate-500">Dívida Interna</h3>
+                    <p class="text-4xl font-bold text-slate-800 mt-2">R$ 99,91 Bi</p>
+                    <p class="text-sm text-slate-500 mt-1">Representa **91,2%** da Dívida Total.</p>
+                    <p class="text-sm font-bold text-red-600 mt-2">Crescimento de +14,2% (2021-2022)</p>
+                </div>
+
+                <div class="flip-card h-40 alert">
+                    <div class="flip-card-inner shadow-xl">
+                        <div class="flip-card-front bg-yellow-50 border-yellow-200 flex flex-col justify-center">
+                            <h3 class="font-bold text-yellow-700 text-sm uppercase">Precatórios Judiciais</h3>
+                            <p class="text-4xl font-extrabold text-yellow-800 mt-2">R$ 15,96 Bi</p>
+                            <p class="text-sm text-slate-500 mt-1">Componente de alto impacto na Dívida Interna.</p>
+                        </div>
+                        <div class="flip-card-back bg-orange-600">
+                             <span class="text-xl font-bold">Salto de:</span>
+                            <p class="text-5xl font-extrabold">+32,5%</p>
+                            <span class="text-sm font-medium">O principal vetor de crescimento da dívida.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="composicao" class="pt-24 mt-12">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-slate-900">Composição da Dívida por Ano (2021 vs 2022)</h2>
+                <p class="mt-3 max-w-2xl mx-auto text-slate-600">O gráfico de barras abaixo mostra a evolução e composição da Dívida Interna e Externa. Passe o mouse para ver os valores exatos em bilhões (R$).</p>
+            </div>
+            <div class="mt-10 bg-white p-4 sm:p-6 rounded-2xl shadow-lg">
+                <div class="chart-container">
+                    <canvas id="composicaoDívidaChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="interna-externa" class="pt-24 mt-12">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-slate-900">O Peso da Dívida: Interna, Externa e Precatórios</h2>
+                <p class="mt-3 max-w-2xl mx-auto text-slate-600">A Dívida Interna domina a estrutura, mas os Precatórios Judiciais merecem atenção especial pelo seu alto crescimento percentual.</p>
+            </div>
+            <div class="mt-10 grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+                <div class="lg:col-span-2 bg-white p-4 sm:p-6 rounded-2xl shadow-lg">
+                    <h3 class="text-xl font-bold text-center mb-4 text-slate-700">Participação na Dívida Total (2022)</h3>
+                     <div class="chart-container" style="height: 350px;">
+                        <canvas id="participacaoTotalChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-2xl shadow-lg h-full flex flex-col justify-between">
+                    <h3 class="text-xl font-bold mb-4 text-center text-slate-700">Variação Percentual (2021 → 2022)</h3>
+                    <ul class="space-y-3 text-lg">
+                        <li class="flex justify-between items-center border-b pb-2">
+                            <span class="font-semibold text-slate-600">Dívida Total</span>
+                            <span class="font-extrabold text-red-600">+11,5%</span>
+                        </li>
+                        <li class="flex justify-between items-center border-b pb-2">
+                            <span class="font-semibold text-slate-600">Dívida Interna</span>
+                            <span class="font-extrabold text-red-600">+14,2%</span>
+                        </li>
+                        <li class="flex justify-between items-center border-b pb-2">
+                            <span class="font-semibold text-slate-600">Precatórios</span>
+                            <span class="font-extrabold text-orange-600">+32,5%</span>
+                        </li>
+                        <li class="flex justify-between items-center">
+                            <span class="font-semibold text-slate-600">Dívida Externa</span>
+                            <span class="font-extrabold text-green-600">-11,6%</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="desafios" class="pt-24 mt-12">
+             <div class="text-center">
+                <h2 class="text-3xl font-bold text-slate-900">Principais Desafios e Conclusões</h2>
+                <p class="mt-3 max-w-2xl mx-auto text-slate-600">Pontos críticos evidenciados pela análise da evolução da dívida pública do Estado do RS.</p>
+            </div>
+            <div class="mt-10 max-w-4xl mx-auto space-y-4">
+                 <div class="bg-white p-5 rounded-lg shadow-sm border-l-4 border-orange-500">
+                    <h3 class="font-bold text-lg text-orange-700">O "Gargalo" dos Precatórios</h3>
+                    <p class="text-slate-600 mt-1">O salto de **32,5%** nos Precatórios Judiciais (R$ 12,05 Bi para R$ 15,96 Bi) indica uma pressão crescente do passivo judicial sobre as contas do Estado.</p>
+                </div>
+                <div class="bg-white p-5 rounded-lg shadow-sm border-l-4 border-red-500">
+                    <h3 class="font-bold text-lg text-red-700">A Dívida Crescente</h3>
+                    <p class="text-slate-600 mt-1">O aumento total de **11,5%** (quase R$ 11,2 bilhões) em um único ano sinaliza a necessidade de rigor e reestruturação fiscal para o controle do endividamento.</p>
+                </div>
+                <div class="bg-white p-5 rounded-lg shadow-sm border-l-4 border-green-500">
+                    <h3 class="font-bold text-lg text-green-700">Alívio na Dívida Externa</h3>
+                    <p class="text-slate-600 mt-1">A redução de **-11,6%** na Dívida Externa (R$ 10,87 Bi para R$ 9,61 Bi) representa um ponto positivo na gestão dos compromissos internacionais do Estado.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="mt-20 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-slate-500 text-sm">
+            <p>Desenvolvido para fins de demonstração de visualização de dados. Não é um documento oficial.</p>
+            <p class="mt-1">Fonte dos Dados: Informações Fornecidas pelo Usuário - Análise Comparativa 2021 vs 2022.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- DADOS DA DÍVIDA ---
+            const dados = {
+                '2021': {
+                    'Contratual': 75.03, 'Parcelados': 0.37, 'Precatórios': 12.06,
+                    'Externa': 10.87, 'Total': 98.33
+                },
+                '2022': {
+                    'Contratual': 83.64, 'Parcelados': 0.31, 'Precatórios': 15.96,
+                    'Externa': 9.61, 'Total': 109.52
+                }
+            };
+            
+            // --- LOGIC: Mobile Menu (Herdado do modelo) ---
+            const menuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const openIcon = document.getElementById('menu-open-icon');
+            const closeIcon = document.getElementById('menu-close-icon');
+            const menuLinks = document.querySelectorAll('.mobile-menu-link');
+
+            const toggleMenu = () => {
+                mobileMenu.classList.toggle('hidden');
+                openIcon.classList.toggle('hidden');
+                closeIcon.classList.toggle('hidden');
+            };
+
+            menuButton.addEventListener('click', toggleMenu);
+            menuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        toggleMenu();
+                    }
+                });
+            });
+
+            // --- CHART 1: Composição da Dívida por Ano (2021 vs 2022) ---
+            const composicaoDívidaData = {
+                labels: ['2021', '2022'],
+                datasets: [
+                    {
+                        label: 'Dívida Externa (Contratos)',
+                        data: [dados['2021']['Externa'], dados['2022']['Externa']],
+                        backgroundColor: '#1d4ed8' // Azul - Dívida Externa
+                    },
+                    {
+                        label: 'Precatórios Judiciais',
+                        data: [dados['2021']['Precatórios'], dados['2022']['Precatórios']],
+                        backgroundColor: '#d97706' // Laranja - Alerta Precatórios
+                    },
+                    {
+                        label: 'Dívida Contratual e Parcelada',
+                        data: [
+                            dados['2021']['Contratual'] + dados['2021']['Parcelados'],
+                            dados['2022']['Contratual'] + dados['2022']['Parcelados']
+                        ],
+                        backgroundColor: '#b91c1c' // Vermelho escuro - Dívida Interna principal
+                    }
+                ]
+            };
+
+            new Chart(document.getElementById('composicaoDívidaChart'), {
+                type: 'bar',
+                data: composicaoDívidaData,
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    scales: {
+                        x: { stacked: true, grid: { display: false } },
+                        y: { 
+                            stacked: true, 
+                            title: { display: true, text: 'Valor (R$ Bilhões)' },
+                            ticks: { callback: value => `R$ ${value.toFixed(1)} Bi` },
+                            grid: { color: 'rgba(200, 200, 200, 0.2)' }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'bottom', labels: { usePointStyle: true } },
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += `R$ ${context.parsed.y.toFixed(2)} Bi`;
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    interaction: { mode: 'index', intersect: false }
+                }
+            });
+            
+            // --- CHART 2: Participação na Dívida Total (Pizza/Doughnut) ---
+            const total2022 = dados['2022']['Total'];
+            const percInterna = (dados['2022']['Contratual'] + dados['2022']['Parcelados'] + dados['2022']['Precatórios']) / total2022 * 100;
+            const percExterna = dados['2022']['Externa'] / total2022 * 100;
+            const percPrecatórios = dados['2022']['Precatórios'] / total2022 * 100;
+
+            const participacaoData = {
+                labels: ['Dívida Interna (Outros)', 'Precatórios Judiciais', 'Dívida Externa'],
+                datasets: [{
+                    data: [
+                        percInterna - percPrecatórios, // Dívida Interna 'limpa'
+                        percPrecatórios,
+                        percExterna
+                    ],
+                    backgroundColor: ['#b91c1c', '#d97706', '#1d4ed8'],
+                    hoverOffset: 10
+                }]
+            };
+
+            new Chart(document.getElementById('participacaoTotalChart'), {
+                type: 'doughnut',
+                data: participacaoData,
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: { position: 'right', labels: { usePointStyle: true, boxWidth: 10 } },
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => {
+                                    const value = context.parsed;
+                                    const label = context.label || '';
+                                    return `${label}: ${value.toFixed(2)}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+        });
+    </script>
+</body>
+</html>
